@@ -37,7 +37,8 @@
                         </label>
                         <br>
                         <textarea name="deskripsi" placeholder="Deskripsi lengkap tentang event..."
-                            class="textarea textarea-bordered h-24 w-full" disabled required>{{ $event->deskripsi }}</textarea>
+                            class="textarea textarea-bordered h-24 w-full" disabled
+                            required>{{ $event->deskripsi }}</textarea>
                     </div>
 
                     <!-- Tanggal & Waktu -->
@@ -66,8 +67,7 @@
                         <select name="kategori_id" class="select select-bordered w-full" required disabled>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ $category->id == $event->kategori_id ? 'selected' : '' }}>
+                                <option value="{{ $category->id }}" {{ $category->id == $event->kategori_id ? 'selected' : '' }}>
                                     {{ $category->nama }}
                                 </option>
                             @endforeach
@@ -80,8 +80,8 @@
                         <label class="label">
                             <span class="label-text font-semibold">Gambar Event</span>
                         </label>
-                        <input type="file" name="gambar" accept="image/*"
-                            class="file-input file-input-bordered w-full" disabled />
+                        <input type="file" name="gambar" accept="image/*" class="file-input file-input-bordered w-full"
+                            disabled />
                         <label class="label">
                             <span class="label-text-alt">Format: JPG, PNG, max 5MB</span>
                         </label>
@@ -96,8 +96,7 @@
                         <div class="avatar max-w-sm">
                             <div class="w-full rounded-lg">
                                 @if ($event->gambar)
-                                    <img id="previewImg" src="{{ asset('images/events/' . $event->gambar) }}"
-                                        alt="Preview">
+                                    <img id="previewImg" src="{{ asset('images/events/' . $event->gambar) }}" alt="Preview">
                                 @else
                                     <img id="previewImg" src="" alt="Preview">
                                 @endif
@@ -134,8 +133,7 @@
                                 <td>
                                     <button class="btn btn-sm btn-primary mr-2" onclick="openEditModal(this)"
                                         data-id="{{ $ticket->id }}" data-tipe="{{ $ticket->tipe }}"
-                                        data-harga="{{ $ticket->harga }}"
-                                        data-stok="{{ $ticket->stok }}">Edit</button>
+                                        data-harga="{{ $ticket->harga }}" data-stok="{{ $ticket->stok }}">Edit</button>
                                     <button class="btn btn-sm bg-red-500 text-white" onclick="openDeleteModal(this)"
                                         data-id="{{ $ticket->id }}">Hapus</button>
                                 </td>
@@ -166,8 +164,9 @@
                 </label>
                 <select name="tipe" class="select select-bordered w-full" required>
                     <option value="" disabled selected>Pilih Tipe Ticket</option>
-                    <option value="reguler">Regular</option>
-                    <option value="premium">Premium</option>
+                    @foreach ($ticketTypes as $type)
+                        <option value="{{ $type->name }}">{{ $type->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-control mb-4">
@@ -207,8 +206,9 @@
                 </label>
                 <select name="tipe" id="edit_tipe" class="select select-bordered w-full" required>
                     <option value="" disabled selected>Pilih Tipe Ticket</option>
-                    <option value="reguler">Regular</option>
-                    <option value="premium">Premium</option>
+                    @foreach ($ticketTypes as $type)
+                        <option value="{{ $type->name }}">{{ $type->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-control mb-4">
@@ -259,11 +259,11 @@
         const successAlert = document.getElementById('successAlert');
 
         // Preview gambar saat dipilih
-        fileInput.addEventListener('change', function(e) {
+        fileInput.addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     previewImg.src = e.target.result;
                     imagePreview.classList.remove('hidden');
                 };
@@ -272,7 +272,7 @@
         });
 
         // Handle reset
-        form.addEventListener('reset', function() {
+        form.addEventListener('reset', function () {
             imagePreview.classList.add('hidden');
             successAlert.classList.add('hidden');
         });

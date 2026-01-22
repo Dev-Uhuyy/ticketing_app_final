@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\TiketController;
+use App\Http\Controllers\Admin\TicketTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
@@ -39,9 +40,12 @@ Route::middleware('auth')->group(function () {
         // Tiket Management 
         Route::resource('tickets', TiketController::class);
 
+        // Ticket Type Management
+        Route::resource('ticket-types', TicketTypeController::class);
+
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
