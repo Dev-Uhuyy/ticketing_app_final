@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->foreignId('kategori_id')->constrained()->onDelete('cascade');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->string('lokasi');
             $table->dateTime('tanggal_waktu');
             $table->string('gambar')->nullable();
             $table->timestamps();

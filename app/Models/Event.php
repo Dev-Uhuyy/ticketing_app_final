@@ -14,7 +14,7 @@ class Event extends Model
         'judul',
         'deskripsi',
         'tanggal_waktu',
-        'lokasi',
+        'location_id',
         'kategori_id',
         'gambar',
         'user_id'
@@ -27,6 +27,10 @@ class Event extends Model
     public function tikets()
     {
         return $this->hasMany(Tiket::class);
+    }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
     }
 
     public function kategori()

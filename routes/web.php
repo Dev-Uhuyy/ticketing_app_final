@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\Admin\HistoriesController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +46,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
+
+        // Location
+        Route::resource('/location', LocationController::class);
     });
 });
 

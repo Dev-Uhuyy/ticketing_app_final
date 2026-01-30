@@ -1,95 +1,130 @@
-<div class="drawer-side is-drawer-close:overflow-visible ">
+<div class="drawer-side is-drawer-close:overflow-visible">
     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-    <div class="flex min-h-full flex-col items-start bg-base-200 w-64 is-drawer-close:w-14 is-drawer-open:w-80">
+
+    <div class="flex min-h-full flex-col bg-base-200
+                w-64 is-drawer-close:w-14 is-drawer-open:w-80">
+
+        <!-- Logo -->
         <div class="w-full flex items-center justify-center p-4">
-            <img src="{{ asset('assets/images/logo_bengkod.svg') }}" alt="Logo">
+            <img src="{{ asset('assets/images/logo_bengkod.svg') }}" alt="Logo" class="h-10">
         </div>
 
-        <!-- Sidebar content here -->
-        <ul class="menu w-full grow gap-1">
-            <!-- Dashboard Item -->
+        <!-- Menu -->
+        <ul class="menu w-full grow gap-1 px-2">
+
+            <!-- Dashboard -->
             <li class="{{ request()->routeIs('admin.dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Dashboard">
-                    <!-- Home icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M6 19h3v-5q0-.425.288-.712T10 13h4q.425 0 .713.288T15 14v5h3v-9l-6-4.5L6 10zm-2 0v-9q0-.475.213-.9t.587-.7l6-4.5q.525-.4 1.2-.4t1.2.4l6 4.5q.375.275.588.7T20 10v9q0 .825-.588 1.413T18 21h-4q-.425 0-.712-.288T13 20v-5h-2v5q0 .425-.288.713T10 21H6q-.825 0-1.412-.587T4 19m8-6.75" />
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="Dashboard">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 12l9-9l9 9M4.5 10.5V21h6v-6h3v6h6V10.5" />
                     </svg>
                     <span class="is-drawer-close:hidden">Dashboard</span>
                 </a>
             </li>
 
-            <!-- Kategori item -->
+            <!-- Kategori -->
             <li class="{{ request()->routeIs('admin.categories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
                 <a href="{{ route('admin.categories.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Kategori">
-                    <!-- icon Kategori -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 3a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="Kategori">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
                     </svg>
                     <span class="is-drawer-close:hidden">Manajemen Kategori</span>
                 </a>
             </li>
 
-            <!-- Event item -->
+            <!-- Event -->
             <li class="{{ request()->routeIs('admin.events.*') ? 'bg-gray-200 rounded-lg' : '' }}">
                 <a href="{{ route('admin.events.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event">
-                    <!-- icon Event -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2" />
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="Event">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                     </svg>
                     <span class="is-drawer-close:hidden">Manajemen Event</span>
                 </a>
             </li>
 
-            <!-- Ticket Type Item -->
+            <!-- Tipe Tiket -->
             <li class="{{ request()->routeIs('admin.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
                 <a href="{{ route('admin.ticket-types.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
-                    <!-- icon Ticket -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M21 9v2h-2v2h2v2h-2v2h2v4h-6v-2h-2v2h-2v-2h-2v2H5v-4h2v-2H5v-2h2V9H5V7h2V5H5V1h6v2h2V1h2v2h2V1h4v4h-2v2h2v2zm-4-4h-2V3h-2v2h-2V3h-2v2H7v14h4v-2h2v2h4v-2h-2v-2h2v-2h-2V9h2V7h-2V5z" />
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="Tipe Tiket">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
                     </svg>
                     <span class="is-drawer-close:hidden">Tipe Tiket</span>
                 </a>
             </li>
 
-            <!-- History item -->
+
+             <!-- Location -->
+            <li class="{{ request()->routeIs('admin.location.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('admin.location.index') }}"
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="Lokasi">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Lokasi</span>
+                </a>
+            </li>
+
+            <!-- History -->
             <li class="{{ request()->routeIs('admin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
                 <a href="{{ route('admin.histories.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
+                   class="flex items-center gap-3
+                          is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                   data-tip="History">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span class="is-drawer-close:hidden">History Pembelian</span>
                 </a>
             </li>
+
         </ul>
 
-        <!-- logout -->
+        <!-- Logout -->
         <div class="w-full p-4">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="btn btn-outline btn-error w-full is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Logout">
-                    <!-- Logout icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M10 17v-2h4v-2h-4v-2l-5 3l5 3m9-12H5q-.825 0-1.413.588T3 7v10q0 .825.587 1.413T5 19h14q.825 0 1.413-.587T21 17v-3h-2v3H5V7h14v3h2V7q0-.825-.587-1.413T19 5z" />
+                        class="btn btn-outline btn-error w-full
+                               flex items-center gap-3
+                               is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                        data-tip="Logout">
+                    <svg class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                     </svg>
                     <span class="is-drawer-close:hidden">Logout</span>
                 </button>
             </form>
         </div>
+
     </div>
 </div>

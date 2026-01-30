@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Kategori;
+use App\Models\Location;
 use App\Models\TicketType;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,9 @@ class EventController extends Controller
     public function create()
     {
         $categories = Kategori::all();
-        return view('admin.event.create', compact('categories'));
+        $locations = Location::all();
+        // dd($locations);
+        return view('admin.event.create', compact('categories','locations'));
     }
 
     /**
@@ -37,7 +40,7 @@ class EventController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'tanggal_waktu' => 'required|date',
-            'lokasi' => 'required|string|max:255',
+            'location_id' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
@@ -70,8 +73,8 @@ class EventController extends Controller
         $categories = Kategori::all();
         $tickets = $event->tikets;
         $ticketTypes = TicketType::all();
-
-        return view('admin.event.show', compact('event', 'categories', 'tickets', 'ticketTypes'));
+        $locations = Location::all();
+        return view('admin.event.show', compact('event', 'categories', 'tickets', 'ticketTypes', 'locations'));
     }
 
     /**
@@ -81,7 +84,8 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $categories = Kategori::all();
-        return view('admin.event.edit', compact('event', 'categories'));
+        $locations = Location::all();
+        return view('admin.event.edit', compact('event', 'categories','locations'));
     }
 
     /**
@@ -96,7 +100,7 @@ class EventController extends Controller
                 'judul' => 'required|string|max:255',
                 'deskripsi' => 'required|string',
                 'tanggal_waktu' => 'required|date',
-                'lokasi' => 'required|string|max:255',
+                'location_id' => 'required|string|max:255',
                 'kategori_id' => 'required|exists:kategoris,id',
                 'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);

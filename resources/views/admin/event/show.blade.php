@@ -56,7 +56,7 @@
                             <span class="label-text font-semibold">Lokasi</span>
                         </label>
                         <input type="text" name="lokasi" placeholder="Contoh: Stadion Utama"
-                            class="input input-bordered w-full" value="{{ $event->lokasi }}" disabled required />
+                            class="input input-bordered w-full" value="{{ $event->location->name }}" disabled required />
                     </div>
 
                     <!-- Kategori -->
