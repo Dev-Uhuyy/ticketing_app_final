@@ -50,10 +50,7 @@
                     <span class="is-drawer-close:hidden">Manajemen Event</span>
                 </a>
             </li>
-            @endif
 
-            @if(auth()->user()->role === 'pengelola_event')
-            <!-- Ticket Type Item -->
             <li class="{{ request()->routeIs('pengelola.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
                 <a href="{{ route('pengelola.ticket-types.index') }}"
                     class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
@@ -65,6 +62,19 @@
                     <span class="is-drawer-close:hidden">Tipe Tiket</span>
                 </a>
             </li>
+
+             <li class="{{ request()->routeIs('pengelola.reviews.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('pengelola.reviews.index') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manajemen Review">
+                    <!-- icon Review -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v2h8v-2zm0-3h-8v2h8V11zm0-3H4V6h14v2z" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Review</span>
+                </a>
+            </li>
+
             @endif
 
             @if(auth()->user()->role === 'superadmin')
