@@ -34,6 +34,20 @@
                     <span class="is-drawer-close:hidden">Manajemen Kategori</span>
                 </a>
             </li>
+
+            <!-- User Management item -->
+            <li class="{{ request()->routeIs('superadmin.users.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('superadmin.users.index') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management">
+                    <!-- icon Users -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0-8 0M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen User</span>
+                </a>
+            </li>
             @endif
 
             @if(auth()->user()->role === 'pengelola_event')
