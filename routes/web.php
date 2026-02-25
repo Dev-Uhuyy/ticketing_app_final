@@ -7,6 +7,7 @@ use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
+use App\Http\Controllers\PengelolaEvent\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+        // Rate dan Review
+        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::get('/reviews/{id}/answer', [ReviewController::class, 'showAnswer'])->name('reviews.showAnswer');
+        Route::post('/reviews/{id}/answer', [ReviewController::class, 'answer'])->name('reviews.answer');
 
         Route::resource('events', AdminEventController::class);
 
