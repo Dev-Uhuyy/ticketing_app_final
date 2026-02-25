@@ -42,7 +42,7 @@
 
           </div>
           <div class="sm:ml-auto sm:mt-auto sm:mr-0 mx-auto mt-3 flex gap-2">
-            <a href="{{ route('admin.histories.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
+            <a href="{{ route('superadmin.histories.index') }}" class="btn btn-primary">Kembali ke Riwayat</a>
           </div>
         </div>
       </div>

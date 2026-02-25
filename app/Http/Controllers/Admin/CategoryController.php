@@ -35,14 +35,14 @@ class CategoryController extends Controller
         ]);
 
         if (!isset($payload['nama'])) {
-            return redirect()->route('categories.index')->with('error', 'Nama kategori wajib diisi.');
+            return redirect()->route('superadmin.categories.index')->with('error', 'Nama kategori wajib diisi.');
         }
 
         Kategori::create([
             'nama' => $payload['nama'],
         ]);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
@@ -71,14 +71,14 @@ class CategoryController extends Controller
         ]);
 
         if (!isset($payload['nama'])) {
-            return redirect()->route('categories.index')->with('error', 'Nama kategori wajib diisi.');
+            return redirect()->route('superadmin.categories.index')->with('error', 'Nama kategori wajib diisi.');
         }
 
         $category = Kategori::findOrFail($id);
         $category->nama = $payload['nama'];
         $category->save();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     /**
@@ -87,6 +87,6 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Kategori::destroy($id);
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

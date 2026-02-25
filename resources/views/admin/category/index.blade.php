@@ -51,7 +51,7 @@
 
     <!-- Add Category Modal -->
     <dialog id="add_modal" class="modal">
-        <form method="POST" action="{{ route('admin.categories.store') }}" class="modal-box">
+        <form method="POST" action="{{ route('superadmin.categories.store') }}" class="modal-box">
             @csrf
             <h3 class="text-lg font-bold mb-4">Tambah Kategori</h3>
             <div class="form-control w-full mb-4">

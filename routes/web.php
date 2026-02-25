@@ -28,23 +28,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('superadmin')->prefix('admin')->name('superadmin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-        // Category Management
         Route::resource('categories', CategoryController::class);
-
-        // Event Management
-        Route::resource('events', AdminEventController::class);
-
-        // Tiket Management 
-        Route::resource('tickets', TiketController::class);
-
-        // Ticket Type Management
-        Route::resource('ticket-types', TicketTypeController::class);
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
+    });
+
+    Route::middleware('pengelola')->prefix('pengelola')->name('pengelola.')->group(function () {
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
+
+        Route::resource('events', AdminEventController::class);
+
+        Route::resource('tickets', TiketController::class);
+
+        Route::resource('ticket-types', TicketTypeController::class);
     });
 });
 

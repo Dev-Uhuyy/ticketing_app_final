@@ -16,7 +16,7 @@
     <div class="container mx-auto p-10">
         <div class="flex">
             <h1 class="text-3xl font-semibold mb-4">Manajemen Event</h1>
-            <a href="{{ route('admin.events.create') }}" class="btn btn-primary ml-auto">Tambah Event</a>
+            <a href="{{ route('pengelola.events.create') }}" class="btn btn-primary ml-auto">Tambah Event</a>
         </div>
         <div class="overflow-x-auto rounded-box bg-white p-5 shadow-xs">
             <table class="table">
@@ -39,8 +39,8 @@
                         <td>{{ $event->tanggal_waktu->format('d M Y') }}</td>
                         <td>{{ $event->lokasi }}</td>
                         <td>
-                            <a href="{{ route('admin.events.show', $event->id) }}" class="btn btn-sm btn-info mr-2">Detail</a>
-                            <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                            <a href="{{ route('pengelola.events.show', $event->id) }}" class="btn btn-sm btn-info mr-2">Detail</a>
+                            <a href="{{ route('pengelola.events.edit', $event->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
                             <button class="btn btn-sm bg-red-500 text-white" onclick="openDeleteModal(this)" data-id="{{ $event->id }}">Hapus</button>
                         </td>
                     </tr>
@@ -78,7 +78,7 @@
             document.getElementById("delete_event_id").value = id;
 
             // Set action dengan parameter ID
-            form.action = `/admin/events/${id}`
+            form.action = `/pengelola/events/${id}`;
 
             delete_modal.showModal();
         }

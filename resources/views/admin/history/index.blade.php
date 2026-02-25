@@ -24,7 +24,7 @@
                         <td>{{ $history->created_at->format('d M Y') }}</td>
                         <td>{{ number_format($history->total_harga, 0, ',', '.') }}</td>
                         <td>
-                            <a href="{{ route('admin.histories.show', $history->id) }}" class="btn btn-sm btn-info text-white">Detail</a>
+                            <a href="{{ route('superadmin.histories.show', $history->id) }}" class="btn btn-sm btn-info text-white">Detail</a>
                         </td>
                     </tr>
                     @empty

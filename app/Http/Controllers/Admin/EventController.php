@@ -15,7 +15,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::where('user_id', auth()->id())->get();
         return view('admin.event.index', compact('events'));
     }
 
@@ -54,11 +54,12 @@ class EventController extends Controller
             $validatedData['gambar'] = $imageName;
         }
 
-        $validatedData['user_id'] = auth()->user()->id ?? null;
+        $validatedData['user_id'] = auth()->id();
 
         Event::create($validatedData);
 
-        return redirect()->route('admin.events.index')->with('success', 'Event berhasil ditambahkan.');
+        return redirect()->route('pengelola.events.index')
+            ->with('success', 'Event berhasil ditambahkan.');
     }
 
     /**
@@ -110,7 +111,7 @@ class EventController extends Controller
 
             $event->update($validatedData);
 
-            return redirect()->route('admin.events.index')->with('success', 'Event berhasil diperbarui.');
+            return redirect()->route('pengelola.events.index')->with('success', 'Event berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui event: ' . $e->getMessage()]);
         }
@@ -124,6 +125,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('admin.events.index')->with('success', 'Event berhasil dihapus.');
+        return redirect()->route('pengelola.events.index')->with('success', 'Event berhasil dihapus.');
     }
 }
