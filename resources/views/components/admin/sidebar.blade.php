@@ -8,9 +8,10 @@
         <!-- Sidebar content here -->
         <ul class="menu w-full grow gap-1">
             <!-- Dashboard Item -->
-            <li class="{{ request()->routeIs('superadmin.dashboard') || request()->routeIs('pengelola.dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ auth()->user()->role === 'superadmin' ? route('superadmin.dashboard') : route('pengelola.dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Dashboard">
+            <li
+                class="{{ request()->routeIs('superadmin.dashboard') || request()->routeIs('pengelola.dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ auth()->user()->role === 'superadmin' ? route('superadmin.dashboard') : route('pengelola.dashboard') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Dashboard">
                     <!-- Home icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor"
@@ -21,65 +22,78 @@
             </li>
 
             @if(auth()->user()->role === 'superadmin')
-            <!-- Kategori item -->
-            <li class="{{ request()->routeIs('superadmin.categories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('superadmin.categories.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Kategori">
-                    <!-- icon Kategori -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 3a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
-                    </svg>
-                    <span class="is-drawer-close:hidden">Manajemen Kategori</span>
-                </a>
-            </li>
+                <!-- Kategori item -->
+                <li class="{{ request()->routeIs('superadmin.categories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                    <a href="{{ route('superadmin.categories.index') }}"
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Kategori">
+                        <!-- icon Kategori -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 3a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
+                        </svg>
+                        <span class="is-drawer-close:hidden">Manajemen Kategori</span>
+                    </a>
+                </li>
+
+                <!-- Voucher item -->
+                <li class="{{ request()->routeIs('superadmin.vouchers.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                    <a href="{{ route('superadmin.vouchers.index') }}"
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Voucher">
+                        <!-- icon Voucher -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M21 7.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0zm-10.5 5.25a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0zM3 6.75A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v10.5A2.25 2.25 0 0 1 18.75 19.5H5.25A2.25 2.25 0 0 1 3 17.25V6.75z" />
+                        </svg>
+                        <span class="is-drawer-close:hidden">Manajemen Voucher</span>
+                    </a>
+                </li>
             @endif
 
             @if(auth()->user()->role === 'pengelola_event')
-            <!-- Event item -->
-            <li class="{{ request()->routeIs('pengelola.events.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('pengelola.events.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manajemen Event">
-                    <!-- icon Event -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2" />
-                    </svg>
-                    <span class="is-drawer-close:hidden">Manajemen Event</span>
-                </a>
-            </li>
+                <!-- Event item -->
+                <li class="{{ request()->routeIs('pengelola.events.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                    <a href="{{ route('pengelola.events.index') }}"
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manajemen Event">
+                        <!-- icon Event -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2" />
+                        </svg>
+                        <span class="is-drawer-close:hidden">Manajemen Event</span>
+                    </a>
+                </li>
             @endif
 
             @if(auth()->user()->role === 'pengelola_event')
-            <!-- Ticket Type Item -->
-            <li class="{{ request()->routeIs('pengelola.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('pengelola.ticket-types.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
-                    <!-- icon Ticket -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M21 9v2h-2v2h2v2h-2v2h2v4h-6v-2h-2v2h-2v-2h-2v2H5v-4h2v-2H5v-2h2V9H5V7h2V5H5V1h6v2h2V1h2v2h2V1h4v4h-2v2h2v2zm-4-4h-2V3h-2v2h-2V3h-2v2H7v14h4v-2h2v2h4v-2h-2v-2h2v-2h-2V9h2V7h-2V5z" />
-                    </svg>
-                    <span class="is-drawer-close:hidden">Tipe Tiket</span>
-                </a>
-            </li>
+                <!-- Ticket Type Item -->
+                <li class="{{ request()->routeIs('pengelola.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                    <a href="{{ route('pengelola.ticket-types.index') }}"
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
+                        <!-- icon Ticket -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M21 9v2h-2v2h2v2h-2v2h2v4h-6v-2h-2v2h-2v-2h-2v2H5v-4h2v-2H5v-2h2V9H5V7h2V5H5V1h6v2h2V1h2v2h2V1h4v4h-2v2h2v2zm-4-4h-2V3h-2v2h-2V3h-2v2H7v14h4v-2h2v2h4v-2h-2v-2h2v-2h-2V9h2V7h-2V5z" />
+                        </svg>
+                        <span class="is-drawer-close:hidden">Tipe Tiket</span>
+                    </a>
+                </li>
             @endif
 
             @if(auth()->user()->role === 'superadmin')
-            <!-- History item -->
-            <li class="{{ request()->routeIs('superadmin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('superadmin.histories.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    <span class="is-drawer-close:hidden">History Pembelian</span>
-                </a>
-            </li>
+                <!-- History item -->
+                <li class="{{ request()->routeIs('superadmin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                    <a href="{{ route('superadmin.histories.index') }}"
+                        class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span class="is-drawer-close:hidden">History Pembelian</span>
+                    </a>
+                </li>
             @endif
         </ul>
 

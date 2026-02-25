@@ -7,6 +7,7 @@ use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
+
+        Route::resource('vouchers', VoucherController::class);
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
