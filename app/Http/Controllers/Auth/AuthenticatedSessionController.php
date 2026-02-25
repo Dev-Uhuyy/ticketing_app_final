@@ -28,10 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // Redirect based on user role
         $user = Auth::user();
-        if ($user->role === 'admin') {
+        if ($user->role === 'superadmin') {
             return redirect()->intended('/admin');
+        } elseif ($user->role === 'pengelola_event') {
+            return redirect()->intended('/pengelola');
         } else {
             return redirect()->intended('/');
         }

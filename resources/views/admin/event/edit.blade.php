@@ -5,7 +5,7 @@
                 <h2 class="card-title text-2xl mb-6">Edit Event</h2>
 
                 <form id="eventForm" class="space-y-4" method="post"
-                    action="{{ route('admin.events.update', $event->id) }}" enctype="multipart/form-data">
+                    action="{{ route('pengelola.events.update', $event->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <!-- Nama Event -->

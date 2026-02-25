@@ -14,6 +14,7 @@ class TicketTypeController extends Controller
     public function index()
     {
         $ticketTypes = TicketType::all();
+      
         return view('admin.ticket_types.index', compact('ticketTypes'));
     }
 
@@ -29,7 +30,7 @@ class TicketTypeController extends Controller
 
         TicketType::create($request->only('name', 'description'));
 
-        return redirect()->route('admin.ticket-types.index')->with('success', 'Tipe tiket berhasil ditambahkan.');
+        return redirect()->route('pengelola.ticket-types.index')->with('success', 'Tipe tiket berhasil ditambahkan.');
     }
 
     /**
@@ -45,7 +46,7 @@ class TicketTypeController extends Controller
         $ticketType = TicketType::findOrFail($id);
         $ticketType->update($request->only('name', 'description'));
 
-        return redirect()->route('admin.ticket-types.index')->with('success', 'Tipe tiket berhasil diperbarui.');
+        return redirect()->route('pengelola.ticket-types.index')->with('success', 'Tipe tiket berhasil diperbarui.');
     }
 
     /**
@@ -54,6 +55,6 @@ class TicketTypeController extends Controller
     public function destroy(string $id)
     {
         TicketType::destroy($id);
-        return redirect()->route('admin.ticket-types.index')->with('success', 'Tipe tiket berhasil dihapus.');
+        return redirect()->route('pengelola.ticket-types.index')->with('success', 'Tipe tiket berhasil dihapus.');
     }
 }

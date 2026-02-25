@@ -18,7 +18,7 @@
                 <h2 class="card-title text-2xl mb-6">Detail Event</h2>
 
                 <form id="eventForm" class="space-y-4" method="post"
-                    action="{{ route('admin.events.update', $event->id) }}" enctype="multipart/form-data">
+                    action="{{ route('pengelola.events.update', $event->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <!-- Nama Event -->
@@ -151,7 +151,7 @@
 
     <!-- Add Ticket Modal -->
     <dialog id="add_ticket_modal" class="modal">
-        <form method="POST" action="{{ route('admin.tickets.store') }}" class="modal-box">
+        <form method="POST" action="{{ route('pengelola.tickets.store') }}" class="modal-box">
             @csrf
 
             <h3 class="text-lg font-bold mb-4">Tambah Ticket</h3>
@@ -283,7 +283,7 @@
             document.getElementById("delete_ticket_id").value = id;
 
             // Set action dengan parameter ID
-            form.action = `/admin/tickets/${id}`;
+            form.action = `/pengelola/tickets/${id}`;
             delete_modal.showModal();
         }
 
@@ -300,7 +300,7 @@
             document.getElementById("edit_stok").value = stok;
 
             // Set action dengan parameter ID
-            form.action = `/admin/tickets/${id}`;
+            form.action = `/pengelola/tickets/${id}`;
             edit_ticket_modal.showModal();
         }
     </script>

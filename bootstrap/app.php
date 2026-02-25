@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'superadmin' => \App\Http\Middleware\AdminMiddleware::class,
+            'pengelola' => \App\Http\Middleware\PengelolaEventMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

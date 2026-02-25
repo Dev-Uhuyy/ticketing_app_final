@@ -56,7 +56,7 @@
 
     <!-- Add Ticket Type Modal -->
     <dialog id="add_modal" class="modal">
-        <form method="POST" action="{{ route('admin.ticket-types.store') }}" class="modal-box">
+        <form method="POST" action="{{ route('pengelola.ticket-types.store') }}" class="modal-box">
             @csrf
             <h3 class="text-lg font-bold mb-4">Tambah Tipe Tiket</h3>
             <div class="form-control w-full mb-4">
@@ -139,7 +139,7 @@
             document.getElementById("edit_type_id").value = id;
 
             // Set action with ID parameter
-            form.action = `/admin/ticket-types/${id}`
+            form.action = `/pengelola/ticket-types/${id}`
 
             edit_modal.showModal();
         }
@@ -150,7 +150,7 @@
             document.getElementById("delete_type_id").value = id;
 
             // Set action with ID parameter
-            form.action = `/admin/ticket-types/${id}`
+            form.action = `/pengelola/ticket-types/${id}`
 
             delete_modal.showModal();
         }

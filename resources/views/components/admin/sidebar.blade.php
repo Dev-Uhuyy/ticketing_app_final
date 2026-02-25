@@ -8,8 +8,8 @@
         <!-- Sidebar content here -->
         <ul class="menu w-full grow gap-1">
             <!-- Dashboard Item -->
-            <li class="{{ request()->routeIs('admin.dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            <li class="{{ request()->routeIs('superadmin.dashboard') || request()->routeIs('pengelola.dashboard') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ auth()->user()->role === 'superadmin' ? route('superadmin.dashboard') : route('pengelola.dashboard') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Dashboard">
                     <!-- Home icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -20,9 +20,10 @@
                 </a>
             </li>
 
+            @if(auth()->user()->role === 'superadmin')
             <!-- Kategori item -->
-            <li class="{{ request()->routeIs('admin.categories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.categories.index') }}"
+            <li class="{{ request()->routeIs('superadmin.categories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('superadmin.categories.index') }}"
                     class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Kategori">
                     <!-- icon Kategori -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -33,11 +34,13 @@
                     <span class="is-drawer-close:hidden">Manajemen Kategori</span>
                 </a>
             </li>
+            @endif
 
+            @if(auth()->user()->role === 'pengelola_event')
             <!-- Event item -->
-            <li class="{{ request()->routeIs('admin.events.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.events.index') }}"
-                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event">
+            <li class="{{ request()->routeIs('pengelola.events.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('pengelola.events.index') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manajemen Event">
                     <!-- icon Event -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -47,10 +50,12 @@
                     <span class="is-drawer-close:hidden">Manajemen Event</span>
                 </a>
             </li>
+            @endif
 
+            @if(auth()->user()->role === 'pengelola_event')
             <!-- Ticket Type Item -->
-            <li class="{{ request()->routeIs('admin.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.ticket-types.index') }}"
+            <li class="{{ request()->routeIs('pengelola.ticket-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('pengelola.ticket-types.index') }}"
                     class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
                     <!-- icon Ticket -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -60,10 +65,12 @@
                     <span class="is-drawer-close:hidden">Tipe Tiket</span>
                 </a>
             </li>
+            @endif
 
+            @if(auth()->user()->role === 'superadmin')
             <!-- History item -->
-            <li class="{{ request()->routeIs('admin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-                <a href="{{ route('admin.histories.index') }}"
+            <li class="{{ request()->routeIs('superadmin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('superadmin.histories.index') }}"
                     class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -73,6 +80,7 @@
                     <span class="is-drawer-close:hidden">History Pembelian</span>
                 </a>
             </li>
+            @endif
         </ul>
 
         <!-- logout -->

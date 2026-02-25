@@ -39,7 +39,7 @@ class TiketController extends Controller
         // Create the ticket
         Tiket::create($validatedData);
 
-        return redirect()->route('admin.events.show', $validatedData['event_id'])->with('success', 'Ticket berhasil ditambahkan.');
+        return redirect()->route('pengelola.events.show', $validatedData['event_id'])->with('success', 'Ticket berhasil ditambahkan.');
     }
 
     /**
@@ -73,7 +73,7 @@ class TiketController extends Controller
 
         $ticket->update($validatedData);
 
-        return redirect()->route('admin.events.show', $ticket->event_id)->with('success', 'Ticket berhasil diperbarui.');
+        return redirect()->route('pengelola.events.show', $ticket->event_id)->with('success', 'Ticket berhasil diperbarui.');
     }
 
     /**
@@ -85,6 +85,6 @@ class TiketController extends Controller
         $eventId = $ticket->event_id;
         $ticket->delete();
 
-        return redirect()->route('admin.events.show', $eventId)->with('success', 'Ticket berhasil dihapus.');
+        return redirect()->route('pengelola.events.show', $eventId)->with('success', 'Ticket berhasil dihapus.');
     }
 }
