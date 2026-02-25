@@ -11,7 +11,7 @@ class EventSeeder extends Seeder
     {
         $events = [
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'judul' => 'Konser Musik Rock',
                 'deskripsi' => 'Nikmati malam penuh energi dengan band rock terkenal.',
                 'tanggal_waktu' => '2024-08-15 19:00:00',
@@ -20,7 +20,7 @@ class EventSeeder extends Seeder
                 'gambar' => 'events/konser_rock.jpg',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'judul' => 'Pameran Seni Kontemporer',
                 'deskripsi' => 'Jelajahi karya seni modern dari seniman lokal dan internasional.',
                 'tanggal_waktu' => '2024-09-10 10:00:00',
@@ -29,7 +29,7 @@ class EventSeeder extends Seeder
                 'gambar' => 'events/pameran_seni.jpg',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'judul' => 'Festival Makanan Internasional',
                 'deskripsi' => 'Cicipi berbagai hidangan lezat dari seluruh dunia.',
                 'tanggal_waktu' => '2024-10-05 12:00:00',
