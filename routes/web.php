@@ -22,11 +22,16 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Reviews
+    Route::get('/events/{event}/reviews', [OrderController::class, 'createReview'])->name('reviews.create');
+    Route::post('/events/{event}/reviews', [OrderController::class, 'storeReview'])->name('reviews.store');
 
     Route::middleware('superadmin')->prefix('admin')->name('superadmin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
