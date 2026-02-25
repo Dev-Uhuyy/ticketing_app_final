@@ -22,7 +22,16 @@
 
             <div class="text-right">
               <div class="font-bold text-lg">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</div>
-              <a href="{{ route('orders.show', $order) }}" class="btn btn-primary mt-3 text-white">Lihat Detail</a>
+              @if(in_array($order->event_id, $reviewedEventIds))
+                <button class="btn btn-outline btn-primary opacity-50 cursor-not-allowed" disabled>
+                    Sudah Direview
+                </button>
+            @else
+                <a href="{{ route('reviews.create', $order->event) }}" class="btn btn-outline btn-primary">
+                    Beri Rating
+                </a>
+            @endif
+              <a href="{{ route('orders.show', $order) }}" class="btn btn-primary  text-white">Lihat Detail</a>
             </div>
           </div>
         </article>

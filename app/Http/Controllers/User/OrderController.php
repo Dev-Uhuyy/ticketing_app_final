@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\DetailOrder;
 use App\Models\Order;
+use App\Models\Review;
+use App\Models\Event;
 use App\Models\Tiket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,8 +19,10 @@ class OrderController extends Controller
   {
     $user = Auth::user() ?? \App\Models\User::first();
     $orders = Order::where('user_id', $user->id)->with('event')->orderBy('created_at', 'desc')->get();
-    
-    return view('orders.index', compact('orders'));
+     $reviewedEventIds = Review::where('user_id', Auth::id())
+        ->pluck('event_id')
+        ->toArray();
+    return view('orders.index', compact('orders', 'reviewedEventIds'));
   }
 
   // show a specific order
@@ -87,4 +91,38 @@ class OrderController extends Controller
       return response()->json(['ok' => false, 'message' => $e->getMessage()], 422);
     }
   }
+
+    //Reviews
+    public function createReview(Event $event)
+    {
+        // Cek apakah user sudah pernah review event ini
+        $alreadyReviewed = Review::where('user_id', Auth::id())
+            ->where('event_id', $event->id)
+            ->exists();
+
+        if ($alreadyReviewed) {
+            return back()->with('error', 'Anda sudah memberi review.');
+        }
+
+        return view('reviews.create', compact('event'));
+    }
+
+    public function storeReview(Request $request, Event $event)
+    {
+        $request->validate([
+            'rate'   => 'required|integer|min:1|max:5',
+            'review' => 'nullable|string|max:1000',
+        ]);
+
+        Review::create([
+            'user_id'  => Auth::id(),
+            'event_id' => $event->id,
+            'rate'     => $request->rate,
+            'review'   => $request->review,
+            'answer'   => 'Belum dibalas', // WAJIB ADA karena kolom tidak default
+        ]);
+
+        return redirect()->route('events.show', $event)
+            ->with('success', 'Review berhasil dikirim.');
+    }
 }
