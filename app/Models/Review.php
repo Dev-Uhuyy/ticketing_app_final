@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     protected $fillable = [
+        'event_id',
         'user_id',
-        'kategori_id',
-        'judul',
-        'deskripsi',
-        'lokasi',
-        'tanggal_waktu',
-        'gambar',
+        'rate',
+        'review',
+        'answer',
     ];
 
     public function user()
