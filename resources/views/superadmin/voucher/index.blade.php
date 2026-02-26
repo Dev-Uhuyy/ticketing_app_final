@@ -27,7 +27,7 @@
                         <th class="w-2/12">Kode</th>
                         <th>Diskon</th>
                         <th>Penggunaan</th>
-                        <th>Tanggal Mulai</th> 
+                        <th>Tanggal Mulai</th>
                         <th>Kadaluarsa</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -42,7 +42,7 @@
                                 {{ $voucher->diskon }} {{ $voucher->tipe_diskon === 'percent' ? '%' : 'IDR' }}
                             </td>
                             <td>{{ $voucher->jumlah_digunakan }} / {{ $voucher->penggunaan_maksimal ?? '∞' }}</td>
-                            
+
                             <td>
                                 @if ($voucher->tanggal_mulai)
                                     {{ $voucher->tanggal_mulai->format('d/m/Y') }}
@@ -50,7 +50,7 @@
                                     <span class="text-gray-400">-</span>
                                 @endif
                             </td>
-                            
+
                             <td>
                                 @if ($voucher->tanggal_kadaluarsa)
                                     {{ $voucher->tanggal_kadaluarsa->format('d/m/Y') }}
@@ -58,24 +58,24 @@
                                     <span class="text-gray-400">-</span>
                                 @endif
                             </td>
-                            
+
                             <td>
                                 <input type="checkbox" class="toggle toggle-primary"
                                     onclick="ubahStatusVoucher({{ $voucher->id }}, this)"
                                     {{ $voucher->aktif ? 'checked' : '' }} />
                             </td>
-                            
+
                             <td>
-                                <button class="btn btn-sm btn-primary mr-2" 
-                                    onclick="openEditModal(this)" 
-                                    data-id="{{ $voucher->id }}" 
-                                    data-code="{{ $voucher->code }}" 
-                                    data-deskripsi="{{ $voucher->deskripsi }}" 
-                                    data-diskon="{{ $voucher->diskon }}" 
-                                    data-tipe_diskon="{{ $voucher->tipe_diskon }}" 
-                                    data-penggunaan_maksimal="{{ $voucher->penggunaan_maksimal }}" 
+                                <button class="btn btn-sm btn-primary mr-2"
+                                    onclick="openEditModal(this)"
+                                    data-id="{{ $voucher->id }}"
+                                    data-code="{{ $voucher->code }}"
+                                    data-deskripsi="{{ $voucher->deskripsi }}"
+                                    data-diskon="{{ $voucher->diskon }}"
+                                    data-tipe_diskon="{{ $voucher->tipe_diskon }}"
+                                    data-penggunaan_maksimal="{{ $voucher->penggunaan_maksimal }}"
                                     data-tanggal_mulai="{{ $voucher->tanggal_mulai?->format('Y-m-d') }}"
-                                    data-tanggal_kadaluarsa="{{ $voucher->tanggal_kadaluarsa?->format('Y-m-d') }}" 
+                                    data-tanggal_kadaluarsa="{{ $voucher->tanggal_kadaluarsa?->format('Y-m-d') }}"
                                     data-aktif="{{ $voucher->aktif ? 'true' : 'false' }}">
                                     Edit
                                 </button>
@@ -97,7 +97,7 @@
         <form method="POST" action="{{ route('superadmin.vouchers.store') }}" class="modal-box max-w-md max-h-[85vh]">
             @csrf
             <h3 class="text-lg font-bold mb-4">Tambah Voucher</h3>
-            
+
             <div class="form-control w-full mb-4">
                 <label class="label mb-2"><span class="label-text">Kode Voucher</span></label>
                 <input type="text" class="input input-bordered w-full" name="code" required />
@@ -124,12 +124,7 @@
             </div>
 
             <div class="form-control w-full mb-4">
-                <label class="label mb-2"><span class="label-text">Jumlah Diskon</span></label>
-                <input type="number" step="0.01" min="0" id="add_diskon" class="input input-bordered w-full" name="diskon" required />
-            </div>
-
-            <div class="form-control w-full mb-4">
-                <label class="label mb-2"><span class="label-text">Penggunaan Maksimal</span></label>
+                <label class="label mb-2"><span class="label-text">Penggunaan Voucher</span></label>
                 <input type="number" min="1" class="input input-bordered w-full" name="penggunaan_maksimal" />
             </div>
 
@@ -196,7 +191,7 @@
             </div>
 
             <div class="form-control w-full mb-4">
-                <label class="label mb-2"><span class="label-text">Penggunaan Maksimal</span></label>
+                <label class="label mb-2"><span class="label-text">Penggunaan Voucher</span></label>
                 <input type="number" min="1" class="input input-bordered w-full" id="edit_voucher_penggunaan" name="penggunaan_maksimal" />
             </div>
 
@@ -313,7 +308,7 @@
         function aturMinKadaluarsa(mulaiId, kadaluarsaId) {
             const inputMulai = document.getElementById(mulaiId);
             const inputKadaluarsa = document.getElementById(kadaluarsaId);
-            
+
             if(inputMulai.value) {
                 inputKadaluarsa.min = inputMulai.value;
             }
@@ -329,16 +324,16 @@
             const inputKadaluarsa = document.getElementById(kadaluarsaId);
             // Tangkap elemen teks error-nya
             const errorText = document.getElementById(errorId);
-            
+
             if(inputMulai.value) {
                 inputKadaluarsa.min = inputMulai.value;
             }
 
             if (inputKadaluarsa.value && inputKadaluarsa.value < inputMulai.value) {
-                inputKadaluarsa.value = ''; 
-                
-                inputKadaluarsa.classList.add('input-error'); 
-                if (errorText) errorText.classList.remove('hidden'); 
+                inputKadaluarsa.value = '';
+
+                inputKadaluarsa.classList.add('input-error');
+                if (errorText) errorText.classList.remove('hidden');
 
             }
         }
@@ -347,7 +342,7 @@
             const inputEl = document.getElementById(inputId);
             const selectEl = document.getElementById(selectId);
             const errorEl = document.getElementById(errorId);
-            
+
             const val = parseFloat(inputEl.value);
             const tipe = selectEl.value;
             let errorMsg = '';
