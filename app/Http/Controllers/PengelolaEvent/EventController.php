@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\PengelolaEvent;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Event;
 use App\Models\Kategori;
 use App\Models\TicketType;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -43,13 +45,13 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::where('user_id', auth()->id())->get();
-        return view('admin.event.index', compact('events'));
+        return view('pengelola_event.event.index', compact('events'));
     }
 
     public function create()
     {
         $categories = Kategori::all();
-        return view('admin.event.create', compact('categories'));
+        return view('pengelola_event.event.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -106,14 +108,14 @@ class EventController extends Controller
         $tickets = $event->tikets;
         $ticketTypes = TicketType::all();
 
-        return view('admin.event.show', compact('event', 'categories', 'tickets', 'ticketTypes'));
+        return view('pengelola_event.event.show', compact('event', 'categories', 'tickets', 'ticketTypes'));
     }
 
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
         $categories = Kategori::all();
-        return view('admin.event.edit', compact('event', 'categories'));
+        return view('pengelola_event.event.edit', compact('event', 'categories'));
     }
 
     public function update(Request $request, string $id)

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Kategori;
+
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Kategori::all();
-        return view('admin.category.index', compact('categories'));
+        return view('superadmin.category.index', compact('categories'));
     }
 
     /**

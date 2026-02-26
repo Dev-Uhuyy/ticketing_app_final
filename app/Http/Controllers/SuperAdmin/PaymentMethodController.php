@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\PaymentMethod;
+
 use Illuminate\Http\Request;
 
 class PaymentMethodController extends Controller
@@ -14,7 +16,7 @@ class PaymentMethodController extends Controller
     public function index()
     {
         $paymentMethods = PaymentMethod::all();
-        return view('admin.payment_methods.index', compact('paymentMethods'));
+        return view('superadmin.payment_methods.index', compact('paymentMethods'));
     }
 
     /**
@@ -22,7 +24,7 @@ class PaymentMethodController extends Controller
      */
     public function create()
     {
-        return view('admin.payment_methods.create');
+        return view('superadmin.payment_methods.create');
     }
 
     /**
@@ -49,7 +51,7 @@ class PaymentMethodController extends Controller
      */
     public function show(PaymentMethod $paymentMethod)
     {
-        return view('admin.payment_methods.show', compact('paymentMethod'));
+        return view('superadmin.payment_methods.show', compact('paymentMethod'));
     }
 
     /**
@@ -57,7 +59,7 @@ class PaymentMethodController extends Controller
      */
     public function edit(PaymentMethod $paymentMethod)
     {
-        return view('admin.payment_methods.edit', compact('paymentMethod'));
+        return view('superadmin.payment_methods.edit', compact('paymentMethod'));
     }
 
     /**

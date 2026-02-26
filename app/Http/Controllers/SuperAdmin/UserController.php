@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -16,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::whereIn('role', ['pengelola_event', 'pembeli'])->get();
-        return view('admin.users.index', compact('users'));
+        return view('superadmin.users.index', compact('users'));
     }
 
     /**
@@ -28,7 +30,7 @@ class UserController extends Controller
             'pengelola_event' => 'Pengelola Event',
             'pembeli' => 'Pembeli',
         ];
-        return view('admin.users.create', compact('roles'));
+        return view('superadmin.users.create', compact('roles'));
     }
 
     /**
@@ -65,7 +67,7 @@ class UserController extends Controller
             'pengelola_event' => 'Pengelola Event',
             'pembeli' => 'Pembeli',
         ];
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('superadmin.users.edit', compact('user', 'roles'));
     }
 
     /**

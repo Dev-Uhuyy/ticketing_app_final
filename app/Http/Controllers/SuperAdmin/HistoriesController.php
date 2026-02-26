@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Order;
+
 use Illuminate\Http\Request;
 
 class HistoriesController extends Controller
@@ -11,13 +13,13 @@ class HistoriesController extends Controller
     public function index()
     {
         $histories = Order::latest()->get();
-        return view('admin.history.index', compact('histories'));
+        return view('superadmin.history.index', compact('histories'));
     }
 
     public function show(string $history)
     {
         $order = Order::findOrFail($history);
-        return view('admin.history.show', compact('order'));
+        return view('superadmin.history.show', compact('order'));
     }
 
 

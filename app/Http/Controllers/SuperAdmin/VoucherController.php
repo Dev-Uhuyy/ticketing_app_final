@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Voucher;
+
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
@@ -14,7 +16,7 @@ class VoucherController extends Controller
     public function index()
     {
         $vouchers = Voucher::all();
-        return view('admin.voucher.index', compact('vouchers'));
+        return view('superadmin.voucher.index', compact('vouchers'));
     }
 
     /**
