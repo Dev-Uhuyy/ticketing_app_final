@@ -28,6 +28,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/events/{event}', [PembeliEventController::class, 'show'])->name('events.show');
 
 // Orders
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+Route::post('/voucher/validate', [OrderController::class, 'validateVoucher'])->name('voucher.validate');
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
