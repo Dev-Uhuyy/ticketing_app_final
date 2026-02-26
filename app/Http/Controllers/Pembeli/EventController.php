@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pembeli;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Event;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -17,13 +19,15 @@ class EventController extends Controller
             'reviews.user'
         ]);
 
+
         $averageRating = round($event->reviews()->avg('rate'), 1);
         $totalReviews  = $event->reviews()->count();
 
-        return view('events.show', compact(
+        return view('pembeli.events.show', compact(
             'event',
             'averageRating',
             'totalReviews'
         ));
+
     }
 }

@@ -22,7 +22,9 @@
 
                 <form id="eventForm" class="space-y-4" method="post" action="{{ route('pengelola.events.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <!-- Nama Event -->
+                    <input type="hidden" name="action" id="formAction" value="draft">
+
+                    <!-- Judul Event -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text font-semibold">Judul Event</span>
@@ -32,7 +34,7 @@
                             name="judul"
                             placeholder="Contoh: Konser Musik Rock"
                             class="input input-bordered w-full"
-                            required />
+                            value="{{ old('judul') }}" />
                     </div>
 
                     <!-- Deskripsi -->
@@ -40,24 +42,34 @@
                         <label class="label">
                             <span class="label-text font-semibold">Deskripsi</span>
                         </label>
-                        <br>
                         <textarea
                             name="deskripsi"
                             placeholder="Deskripsi lengkap tentang event..."
-                            class="textarea textarea-bordered h-24 w-full"
-                            required></textarea>
+                            class="textarea textarea-bordered h-24 w-full">{{ old('deskripsi') }}</textarea>
                     </div>
 
-                    <!-- Tanggal & Waktu -->
+                    <!-- Tanggal & Waktu Mulai -->
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text font-semibold">Tanggal & Waktu</span>
+                            <span class="label-text font-semibold">Tanggal & Waktu Mulai</span>
                         </label>
                         <input
                             type="datetime-local"
-                            name="tanggal_waktu"
+                            name="tanggal_waktu_mulai"
                             class="input input-bordered w-full"
-                            required />
+                            value="{{ old('tanggal_waktu_mulai') }}" />
+                    </div>
+
+                    <!-- Tanggal & Waktu Selesai -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-semibold">Tanggal & Waktu Selesai</span>
+                        </label>
+                        <input
+                            type="datetime-local"
+                            name="tanggal_waktu_selesai"
+                            class="input input-bordered w-full"
+                            value="{{ old('tanggal_waktu_selesai') }}" />
                     </div>
 
                     <!-- Lokasi -->
@@ -70,7 +82,7 @@
                             name="lokasi"
                             placeholder="Contoh: Stadion Utama"
                             class="input input-bordered w-full"
-                            required />
+                            value="{{ old('lokasi') }}" />
                     </div>
 
                     <!-- Kategori -->
@@ -78,10 +90,12 @@
                         <label class="label">
                             <span class="label-text font-semibold">Kategori</span>
                         </label>
-                        <select name="kategori_id" class="select select-bordered w-full" required>
+                        <select name="kategori_id" class="select select-bordered w-full">
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                            <option value="{{ $category->id }}" {{ old('kategori_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->nama }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -96,7 +110,7 @@
                             name="gambar"
                             accept="image/*"
                             class="file-input file-input-bordered w-full"
-                            required />
+                            id="gambarInput" />
                         <label class="label">
                             <span class="label-text-alt">Format: JPG, PNG, max 5MB</span>
                         </label>
@@ -107,7 +121,6 @@
                         <label class="label">
                             <span class="label-text font-semibold">Preview Gambar</span>
                         </label>
-                        <br>
                         <div class="avatar max-w-sm">
                             <div class="w-full rounded-lg">
                                 <img id="previewImg" src="" alt="Preview">
@@ -115,33 +128,44 @@
                         </div>
                     </div>
 
+                    <!-- Jadwal Publikasi -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-semibold">Jadwal Publikasi <span class="text-gray-400 font-normal">(opsional)</span></span>
+                        </label>
+                        <input
+                            type="datetime-local"
+                            name="publish_at"
+                            class="input input-bordered w-full"
+                            value="{{ old('publish_at') }}" />
+                        <label class="label">
+                            <span class="label-text-alt">Kosongkan untuk publish langsung, isi untuk jadwalkan publikasi otomatis</span>
+                        </label>
+                    </div>
+
                     <!-- Tombol Submit -->
-                    <div class="card-actions justify-end mt-6">
+                    <div class="card-actions justify-end mt-6 gap-2">
                         <button type="reset" class="btn btn-ghost">Reset</button>
-                        <button type="submit" class="btn btn-primary">Simpan Event</button>
+                        <button type="button" onclick="submitForm('draft')" class="btn btn-outline">Save as Draft</button>
+                        <button type="button" onclick="submitForm('publish')" class="btn btn-primary">Publish</button>
                     </div>
                 </form>
             </div>
-        </div>
-
-        <!-- Alert Success -->
-        <div id="successAlert" class="alert alert-success mt-4 hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Event berhasil disimpan!</span>
         </div>
     </div>
 
     <script>
         const form = document.getElementById('eventForm');
-        const fileInput = form.querySelector('input[type="file"]');
+        const gambarInput = document.getElementById('gambarInput');
         const imagePreview = document.getElementById('imagePreview');
         const previewImg = document.getElementById('previewImg');
-        const successAlert = document.getElementById('successAlert');
 
-        // Preview gambar saat dipilih
-        fileInput.addEventListener('change', function(e) {
+        function submitForm(action) {
+            document.getElementById('formAction').value = action;
+            form.submit();
+        }
+
+        gambarInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -153,10 +177,8 @@
             }
         });
 
-        // Handle reset
         form.addEventListener('reset', function() {
             imagePreview.classList.add('hidden');
-            successAlert.classList.add('hidden');
         });
     </script>
 </x-layouts.admin>

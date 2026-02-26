@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pembeli;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\DetailOrder;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\Event;
 use App\Models\Tiket;
 use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,17 +21,19 @@ class OrderController extends Controller
   {
     $user = Auth::user() ?? \App\Models\User::first();
     $orders = Order::where('user_id', $user->id)->with('event')->orderBy('created_at', 'desc')->get();
+
      $reviewedEventIds = Review::where('user_id', Auth::id())
         ->pluck('event_id')
         ->toArray();
-    return view('orders.index', compact('orders', 'reviewedEventIds'));
+    return view('pembeli.orders.index', compact('orders', 'reviewedEventIds'));
+
   }
 
   // show a specific order
   public function show(Order $order)
   {
     $order->load('detailOrders.tiket', 'event');
-    return view('orders.show', compact('order'));
+    return view('pembeli.orders.show', compact('order'));
   }
 
   // store an order (AJAX POST)

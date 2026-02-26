@@ -1,22 +1,31 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EventController as AdminEventController;
-use App\Http\Controllers\User\EventController as UserEventController;
-use App\Http\Controllers\Admin\HistoriesController;
-use App\Http\Controllers\Admin\TiketController;
-use App\Http\Controllers\Admin\TicketTypeController;
+
 use App\Http\Controllers\PengelolaEvent\ReviewController;
+use App\Http\Controllers\SuperAdmin\CategoryController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
+use App\Http\Controllers\SuperAdmin\HistoriesController;
+use App\Http\Controllers\SuperAdmin\PaymentMethodController;
+use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\VoucherController;
+
+use App\Http\Controllers\PengelolaEvent\DashboardController as PengelolaDashboard;
+use App\Http\Controllers\PengelolaEvent\EventController as PengelolaEventController;
+use App\Http\Controllers\PengelolaEvent\TiketController;
+use App\Http\Controllers\PengelolaEvent\TicketTypeController;
+
+use App\Http\Controllers\Pembeli\EventController as PembeliEventController;
+use App\Http\Controllers\Pembeli\HomeController;
+use App\Http\Controllers\Pembeli\OrderController;
+
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\OrderController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Events
-Route::get('/events/{event}', [UserEventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}', [PembeliEventController::class, 'show'])->name('events.show');
 
 // Orders
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -35,25 +44,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{event}/reviews', [OrderController::class, 'storeReview'])->name('reviews.store');
 
     Route::middleware('superadmin')->prefix('admin')->name('superadmin.')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [SuperAdminDashboard::class, 'index'])->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
+        Route::resource('users', UserController::class);
+
+        Route::resource('vouchers', VoucherController::class);
+        Route::post('vouchers/{id}/toggle-status', [VoucherController::class, 'toggleStatus'])->name('vouchers.toggleStatus');
+        Route::get('payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods.index');
+        Route::post('payment-methods', [PaymentMethodController::class, 'store'])->name('payment-methods.store');
+        Route::put('payment-methods/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('payment-methods.update');
+        Route::delete('payment-methods/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('payment-methods.destroy');
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
     });
 
     Route::middleware('pengelola')->prefix('pengelola')->name('pengelola.')->group(function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/', [PengelolaDashboard::class, 'index'])->name('dashboard');
+
 
         // Rate dan Review
         Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
         Route::get('/reviews/{id}/answer', [ReviewController::class, 'showAnswer'])->name('reviews.showAnswer');
         Route::post('/reviews/{id}/answer', [ReviewController::class, 'answer'])->name('reviews.answer');
 
-        Route::resource('events', AdminEventController::class);
+
+
+        Route::resource('events', PengelolaEventController::class);
 
         Route::resource('tickets', TiketController::class);
 
