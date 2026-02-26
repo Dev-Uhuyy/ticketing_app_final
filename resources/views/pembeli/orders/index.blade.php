@@ -15,7 +15,9 @@
                     <div class="card-body flex justify-between">
                         <div>
                             <div class="font-bold">Order #{{ $order->id }}</div>
-                            <div class="text-sm text-gray-500 mt-1">{{ $order->order_date->translatedFormat('d F Y, H:i') }}</div>
+                            <div class="text-sm text-gray-500 mt-1">
+                                {{ $order->order_date->translatedFormat('d F Y, H:i') }}
+                            </div>
                             <div class="text-sm mt-2">{{ $order->event?->judul ?? 'Event' }}</div>
                         </div>
 
@@ -26,7 +28,21 @@
                                 </div>
                             @endif
                             <div class="font-bold text-lg">Rp {{ number_format($order->total_bayar, 0, ',', '.') }}</div>
-                            <a href="{{ route('orders.show', $order) }}" class="btn btn-primary mt-3 text-white">Lihat Detail</a>
+
+                            @if (in_array($order->event_id, $reviewedEventIds))
+                                <button class="btn btn-outline btn-primary btn-sm mt-3 opacity-50 cursor-not-allowed"
+                                    disabled>
+                                    Sudah Direview
+                                </button>
+                            @else
+                                <a href="{{ route('reviews.create', $order->event) }}"
+                                    class="btn btn-outline btn-primary btn-sm mt-3">
+                                    Beri Rating
+                                </a>
+                            @endif
+
+                            <a href="{{ route('orders.show', $order) }}"
+                                class="btn btn-primary btn-sm mt-3 text-white">Lihat Detail</a>
                         </div>
                     </div>
                 </article>
@@ -35,26 +51,5 @@
             @endforelse
         </div>
     </section>
-
-            <div class="text-right">
-              <div class="font-bold text-lg">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</div>
-              @if(in_array($order->event_id, $reviewedEventIds))
-                <button class="btn btn-outline btn-primary opacity-50 cursor-not-allowed" disabled>
-                    Sudah Direview
-                </button>
-            @else
-                <a href="{{ route('reviews.create', $order->event) }}" class="btn btn-outline btn-primary">
-                    Beri Rating
-                </a>
-            @endif
-              <a href="{{ route('orders.show', $order) }}" class="btn btn-primary  text-white">Lihat Detail</a>
-            </div>
-          </div>
-        </article>
-      @empty
-        <div class="alert alert-info">Anda belum memiliki pesanan.</div>
-      @endforelse
-    </div>
-  </section>
 
 </x-layouts.app>
