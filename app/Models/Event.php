@@ -13,15 +13,19 @@ class Event extends Model
         'user_id',
         'judul',
         'deskripsi',
-        'tanggal_waktu',
+        'tanggal_waktu_mulai',
+        'tanggal_waktu_selesai',
         'lokasi',
         'kategori_id',
         'gambar',
-        'user_id'
+        'status',
+        'publish_at',
     ];
 
     protected $casts = [
-        'tanggal_waktu' => 'datetime',
+        'tanggal_waktu_mulai'  => 'datetime',
+        'tanggal_waktu_selesai' => 'datetime',
+        'publish_at'           => 'datetime',
     ];
 
     public function tikets()

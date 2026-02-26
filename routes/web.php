@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\Admin\HistoriesController;
+use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
@@ -34,6 +36,13 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('categories', CategoryController::class);
         Route::resource('users', UserController::class);
+
+        Route::resource('vouchers', VoucherController::class);
+        Route::post('vouchers/{id}/toggle-status', [VoucherController::class, 'toggleStatus'])->name('vouchers.toggleStatus');
+        Route::get('payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods.index');
+        Route::post('payment-methods', [PaymentMethodController::class, 'store'])->name('payment-methods.store');
+        Route::put('payment-methods/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('payment-methods.update');
+        Route::delete('payment-methods/{paymentMethod}', [PaymentMethodController::class, 'destroy'])->name('payment-methods.destroy');
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
