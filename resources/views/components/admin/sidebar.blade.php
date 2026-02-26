@@ -41,9 +41,9 @@
                     <a href="{{ route('superadmin.vouchers.index') }}"
                         class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Voucher">
                         <!-- icon Voucher -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M21 7.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0zm-10.5 5.25a4.5 4.5 0 1 1 9 0a4.5 4.5 0 0 1-9 0zM3 6.75A2.25 2.25 0 0 1 5.25 4.5h13.5A2.25 2.25 0 0 1 21 6.75v10.5A2.25 2.25 0 0 1 18.75 19.5H5.25A2.25 2.25 0 0 1 3 17.25V6.75z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                            <line x1="13" y1="5" x2="13" y2="19" stroke-dasharray="4 4"/>
                         </svg>
                         <span class="is-drawer-close:hidden">Manajemen Voucher</span>
                     </a>

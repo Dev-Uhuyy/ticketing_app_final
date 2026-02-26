@@ -16,11 +16,13 @@ class Voucher extends Model
         'tipe_diskon',
         'penggunaan_maksimal',
         'jumlah_digunakan',
+        'tanggal_mulai',
         'tanggal_kadaluarsa',
         'aktif',
     ];
 
     protected $casts = [
+        'tanggal_mulai' => 'datetime',
         'tanggal_kadaluarsa' => 'datetime',
         'aktif' => 'boolean',
     ];

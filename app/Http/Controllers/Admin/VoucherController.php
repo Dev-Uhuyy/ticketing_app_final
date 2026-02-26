@@ -36,6 +36,7 @@ class VoucherController extends Controller
             'diskon' => 'required|numeric|min:0',
             'tipe_diskon' => 'required|in:fixed,percent',
             'penggunaan_maksimal' => 'nullable|integer|min:1',
+            'tanggal_mulai' => 'nullable|date',
             'tanggal_kadaluarsa' => 'nullable|date',
             'aktif' => 'nullable|boolean',
         ]);
@@ -47,6 +48,7 @@ class VoucherController extends Controller
         $validatedData['code'] = strtoupper($validatedData['code']);
         $validatedData['deskripsi'] = $validatedData['deskripsi'] ?? null;
         $validatedData['penggunaan_maksimal'] = $validatedData['penggunaan_maksimal'] ?? null;
+        $validatedData['tanggal_mulai'] = $validatedData['tanggal_mulai'] ?? null;
         $validatedData['tanggal_kadaluarsa'] = $validatedData['tanggal_kadaluarsa'] ?? null;
         $validatedData['aktif'] = $validatedData['aktif'] ?? true;
 
@@ -82,6 +84,7 @@ class VoucherController extends Controller
             'diskon' => 'required|numeric|min:0',
             'tipe_diskon' => 'required|in:fixed,percent',
             'penggunaan_maksimal' => 'nullable|integer|min:1',
+            'tanggal_mulai' => 'nullable|date',
             'tanggal_kadaluarsa' => 'nullable|date',
             'aktif' => 'nullable|boolean',
         ]);
@@ -96,6 +99,7 @@ class VoucherController extends Controller
         $voucher->diskon = $validatedData['diskon'];
         $voucher->tipe_diskon = $validatedData['tipe_diskon'];
         $voucher->penggunaan_maksimal = $validatedData['penggunaan_maksimal'] ?? null;
+        $voucher->tanggal_mulai = $validatedData['tanggal_mulai'] ?? null;
         $voucher->tanggal_kadaluarsa = $validatedData['tanggal_kadaluarsa'] ?? null;
         $voucher->aktif = $validatedData['aktif'] ?? true;
         $voucher->save();
@@ -110,5 +114,21 @@ class VoucherController extends Controller
     {
         Voucher::destroy($id);
         return redirect()->route('superadmin.vouchers.index')->with('success', 'Voucher berhasil dihapus.');
+    }
+
+    /**
+     * Update status aktif/nonaktif via AJAX (Toggle).
+     */
+    public function toggleStatus(Request $request, string $id)
+    {
+        try {
+            $voucher = Voucher::findOrFail($id);
+            $voucher->aktif = $request->aktif; // Menerima angka 1 (aktif) atau 0 (nonaktif) dari fetch JS
+            $voucher->save();
+
+            return response()->json(['success' => true, 'message' => 'Status berhasil diubah.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal mengubah status.'], 500);
+        }
     }
 }

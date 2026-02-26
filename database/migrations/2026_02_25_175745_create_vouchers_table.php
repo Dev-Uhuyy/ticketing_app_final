@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->enum('tipe_diskon', ['fixed', 'percent']);
             $table->integer('penggunaan_maksimal')->nullable();
             $table->integer('jumlah_digunakan')->default(0);
+            $table->dateTime('tanggal_mulai')->nullable();
             $table->dateTime('tanggal_kadaluarsa')->nullable();
             $table->boolean('aktif')->default(true);
             $table->timestamps();

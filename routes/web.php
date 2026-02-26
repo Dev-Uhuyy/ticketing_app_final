@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         Route::resource('vouchers', VoucherController::class);
+        Route::post('vouchers/{id}/toggle-status', [VoucherController::class, 'toggleStatus'])->name('vouchers.toggleStatus');
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
