@@ -10,10 +10,24 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function show(Event $event)
+      public function show(Event $event)
     {
-        $event->load(['tikets', 'kategori', 'user']);
+        $event->load([
+            'tikets',
+            'kategori',
+            'user',
+            'reviews.user'
+        ]);
 
-        return view('pembeli.events.show', compact('event'));
+
+        $averageRating = round($event->reviews()->avg('rate'), 1);
+        $totalReviews  = $event->reviews()->count();
+
+        return view('pembeli.events.show', compact(
+            'event',
+            'averageRating',
+            'totalReviews'
+        ));
+
     }
 }
