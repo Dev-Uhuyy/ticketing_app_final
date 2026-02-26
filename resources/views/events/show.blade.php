@@ -74,7 +74,95 @@
               <div class="alert alert-info">Tiket belum tersedia untuk acara ini.</div>
               @endforelse
             </div>
+            {{-- ================= RATING & ULASAN ================= --}}
+<div class="divider mt-10"></div>
 
+<h3 class="text-xl font-bold mb-6">Rating & Ulasan</h3>
+
+<div class="bg-base-100 rounded-2xl shadow-sm p-8">
+
+    {{-- Rating Summary --}}
+    <div class="flex flex-col md:flex-row md:items-center gap-10 mb-10">
+
+        {{-- Average --}}
+        <div class="text-center">
+            <div class="text-6xl font-bold text-primary">
+                {{ $averageRating ?? 0 }}
+            </div>
+
+            <div class="flex justify-center text-yellow-400 text-2xl mt-2">
+                @for ($i = 1; $i <= 5; $i++)
+                    {{ ($averageRating ?? 0) >= $i ? '★' : '☆' }}
+                @endfor
+            </div>
+
+            <p class="text-gray-500 text-sm mt-2">
+                {{ $totalReviews }} ulasan
+            </p>
+        </div>
+
+        {{-- Description --}}
+        <div class="flex-1 text-gray-600 text-sm">
+
+        </div>
+
+    </div>
+
+    {{-- Review List --}}
+    <div class="space-y-8">
+
+        @forelse($event->reviews as $review)
+
+            <div class="border-b pb-6">
+
+                {{-- Header --}}
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <div class="font-semibold">
+                            {{ $review->user->name }}
+                        </div>
+                        <div class="text-xs text-gray-400">
+                            {{ $review->created_at->format('d M Y') }}
+                        </div>
+                    </div>
+
+                    <div class="text-yellow-400 text-lg">
+                        @for ($i = 1; $i <= 5; $i++)
+                            {{ $review->rate >= $i ? '★' : '☆' }}
+                        @endfor
+                    </div>
+                </div>
+
+                {{-- Review Text --}}
+                @if($review->review)
+                    <p class="text-gray-700 mt-2">
+                        {{ $review->review }}
+                    </p>
+                @endif
+
+                {{-- Admin Answer --}}
+                @if($review->answer && strtolower($review->answer) !== 'belum dibalas')
+                    <div class="bg-gray-50 border rounded-xl p-4 mt-4">
+                        <div class="text-sm font-semibold text-primary mb-1">
+                            Balasan Pengelola
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            {{ $review->answer }}
+                        </p>
+                    </div>
+                @endif
+
+            </div>
+
+        @empty
+            <div class="text-gray-500 text-center py-6">
+                Belum ada review untuk event ini.
+            </div>
+        @endforelse
+
+    </div>
+
+</div>
           </div>
         </div>
       </div>
