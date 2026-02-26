@@ -69,13 +69,22 @@
                                 <select class="select select-bordered w-full" id="voucherSelect" name="voucher_id">
                                     <option value="">Pilih Voucher</option>
                                     @foreach ($vouchers as $voucher)
-                                        <option value="{{ $voucher->id }}" data-diskon="{{ $voucher->diskon }}"
-                                            data-tipe="{{ $voucher->tipe_diskon }}">
+                                        @php
+                                            $isDisabled = $voucher->tipe_diskon === 'fixed' && $voucher->diskon > $subtotal;
+                                        @endphp
+                                        <option value="{{ $voucher->id }}"
+                                            data-diskon="{{ $voucher->diskon }}"
+                                            data-tipe="{{ $voucher->tipe_diskon }}"
+                                            @if($isDisabled) disabled @endif
+                                            style="{{ $isDisabled ? 'opacity: 0.5; color: #999;' : '' }}">
                                             {{ $voucher->code }} -
                                             @if ($voucher->tipe_diskon === 'percent')
                                                 {{ $voucher->diskon }}% OFF
                                             @else
                                                 Rp {{ number_format($voucher->diskon, 0, ',', '.') }} OFF
+                                            @endif
+                                            @if($isDisabled)
+                                                (Tidak dapat digunakan - nominal lebih besar dari total)
                                             @endif
                                         </option>
                                     @endforeach
@@ -212,6 +221,20 @@
                         if (this.value) {
                             const diskonVal = parseFloat(selectedOption.dataset.diskon);
                             const tipe = selectedOption.dataset.tipe;
+
+                            // Validasi untuk voucher tipe fixed
+                            if (tipe === 'fixed' && diskonVal > subtotal) {
+                                if (voucherMessageEl) {
+                                    voucherMessageEl.textContent = 'Voucher tidak dapat digunakan karena nominal voucher lebih besar dari total harga tiket.';
+                                    voucherMessageEl.classList.remove('text-success');
+                                    voucherMessageEl.classList.add('text-error');
+                                }
+                                // Reset voucher selection
+                                this.value = '';
+                                resetVoucher();
+                                updateTotal();
+                                return;
+                            }
 
                             if (tipe === 'percent') {
                                 discount = (subtotal * diskonVal) / 100;

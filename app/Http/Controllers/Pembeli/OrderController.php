@@ -177,6 +177,11 @@ class OrderController extends Controller
                         throw new \Exception("Voucher sudah habis digunakan.");
                     }
 
+                    // Validasi untuk voucher tipe fixed: tidak bisa digunakan jika nominal voucher > total harga
+                    if ($voucher->tipe_diskon === 'fixed' && $voucher->diskon > $total) {
+                        throw new \Exception("Voucher tidak dapat digunakan karena nominal voucher lebih besar dari total harga tiket.");
+                    }
+
                     if ($voucher->tipe_diskon === 'percent') {
                         $diskonAmount = ($total * $voucher->diskon) / 100;
                     } else {
