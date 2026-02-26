@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
@@ -34,6 +35,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('categories', CategoryController::class);
 
+        Route::resource('vouchers', VoucherController::class);
+        Route::post('vouchers/{id}/toggle-status', [VoucherController::class, 'toggleStatus'])->name('vouchers.toggleStatus');
         Route::get('payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods.index');
         Route::post('payment-methods', [PaymentMethodController::class, 'store'])->name('payment-methods.store');
         Route::put('payment-methods/{paymentMethod}', [PaymentMethodController::class, 'update'])->name('payment-methods.update');

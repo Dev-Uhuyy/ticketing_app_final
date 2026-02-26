@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             TicketSeeder::class,
             OrderSeeder::class,
+            VoucherSeeder::class,
         ]);
     }
 }
