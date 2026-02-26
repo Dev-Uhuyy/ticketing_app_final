@@ -48,6 +48,20 @@
                         <span class="is-drawer-close:hidden">Manajemen Voucher</span>
                     </a>
                 </li>
+
+            <!-- Payment Methods item -->
+            <li class="{{ request()->routeIs('superadmin.payment-methods.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('superadmin.payment-methods.index') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Metode Pembayaran">
+                    <!-- icon Payment -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m4 0h1M5 21h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Metode Pembayaran</span>
+                </a>
+            </li>
             @endif
 
             @if(auth()->user()->role === 'pengelola_event')
