@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\TicketTypeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
+        Route::resource('users', UserController::class);
 
         Route::resource('vouchers', VoucherController::class);
         Route::post('vouchers/{id}/toggle-status', [VoucherController::class, 'toggleStatus'])->name('vouchers.toggleStatus');
