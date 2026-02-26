@@ -1,24 +1,28 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EventController as AdminEventController;
-use App\Http\Controllers\User\EventController as UserEventController;
-use App\Http\Controllers\Admin\HistoriesController;
-use App\Http\Controllers\Admin\PaymentMethodController;
-use App\Http\Controllers\Admin\TiketController;
-use App\Http\Controllers\Admin\TicketTypeController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\SuperAdmin\CategoryController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
+use App\Http\Controllers\SuperAdmin\HistoriesController;
+use App\Http\Controllers\SuperAdmin\PaymentMethodController;
+use App\Http\Controllers\SuperAdmin\UserController;
+use App\Http\Controllers\SuperAdmin\VoucherController;
+
+use App\Http\Controllers\PengelolaEvent\DashboardController as PengelolaDashboard;
+use App\Http\Controllers\PengelolaEvent\EventController as PengelolaEventController;
+use App\Http\Controllers\PengelolaEvent\TiketController;
+use App\Http\Controllers\PengelolaEvent\TicketTypeController;
+
+use App\Http\Controllers\Pembeli\EventController as PembeliEventController;
+use App\Http\Controllers\Pembeli\HomeController;
+use App\Http\Controllers\Pembeli\OrderController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\OrderController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Events
-Route::get('/events/{event}', [UserEventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}', [PembeliEventController::class, 'show'])->name('events.show');
 
 // Orders
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -32,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware('superadmin')->prefix('admin')->name('superadmin.')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [SuperAdminDashboard::class, 'index'])->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
         Route::resource('users', UserController::class);
@@ -49,12 +53,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('pengelola')->prefix('pengelola')->name('pengelola.')->group(function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/', [PengelolaDashboard::class, 'index'])->name('dashboard');
 
-
-        Route::resource('events', AdminEventController::class);
+        Route::resource('events', PengelolaEventController::class);
 
         Route::resource('tickets', TiketController::class);
 

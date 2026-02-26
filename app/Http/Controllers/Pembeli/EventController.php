@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pembeli;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Event;
+
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -12,6 +14,6 @@ class EventController extends Controller
     {
         $event->load(['tikets', 'kategori', 'user']);
 
-        return view('events.show', compact('event'));
+        return view('pembeli.events.show', compact('event'));
     }
 }

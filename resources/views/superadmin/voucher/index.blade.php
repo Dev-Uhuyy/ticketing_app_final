@@ -94,7 +94,7 @@
 
     <!-- Add Voucher Modal -->
     <dialog id="add_modal" class="modal">
-        <form method="POST" action="/admin/vouchers" class="modal-box max-w-md max-h-[85vh]">
+        <form method="POST" action="{{ route('superadmin.vouchers.store') }}" class="modal-box max-w-md max-h-[85vh]">
             @csrf
             <h3 class="text-lg font-bold mb-4">Tambah Voucher</h3>
             
@@ -258,7 +258,7 @@
             aturBatasDiskon(document.getElementById('edit_voucher_tipe_diskon'), 'edit_voucher_diskon');
             aturMinKadaluarsa('edit_voucher_tanggal_mulai', 'edit_voucher_tanggal_kadaluarsa');
 
-            document.querySelector('#edit_modal form').action = `/admin/vouchers/${id}`;
+            document.querySelector('#edit_modal form').action = `{{ url('admin/vouchers') }}/${id}`;
             edit_modal.showModal();
         }
 
@@ -266,14 +266,14 @@
             const { id } = button.dataset;
             const codeElement = button.parentElement.parentElement.querySelector('td:nth-child(2)');
             document.getElementById('delete_voucher_code').textContent = codeElement.textContent.trim();
-            document.querySelector('#delete_modal form').action = `/admin/vouchers/${id}`;
+            document.querySelector('#delete_modal form').action = `{{ url('admin/vouchers') }}/${id}`;
             delete_modal.showModal();
         }
 
         function ubahStatusVoucher(id, element) {
             const isAktif = element.checked ? 1 : 0;
 
-            fetch(`/admin/vouchers/${id}/toggle-status`, {
+            fetch(`{{ url('admin/vouchers') }}/${id}/toggle-status`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

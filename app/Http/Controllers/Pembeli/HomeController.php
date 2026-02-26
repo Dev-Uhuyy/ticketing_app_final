@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Pembeli;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Event;
 use App\Models\Kategori;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,6 +24,6 @@ class HomeController extends Controller
 
         $events = $eventsQuery->get();
 
-        return view('home', compact('events', 'categories'));
+        return view('pembeli.home', compact('events', 'categories'));
     }
 }

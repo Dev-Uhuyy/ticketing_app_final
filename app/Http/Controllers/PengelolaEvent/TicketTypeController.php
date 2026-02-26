@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\PengelolaEvent;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\TicketType;
+
 use Illuminate\Http\Request;
 
 class TicketTypeController extends Controller
@@ -15,7 +17,7 @@ class TicketTypeController extends Controller
     {
         $ticketTypes = TicketType::all();
       
-        return view('admin.ticket_types.index', compact('ticketTypes'));
+        return view('pengelola_event.ticket_types.index', compact('ticketTypes'));
     }
 
     /**
