@@ -40,27 +40,18 @@ class EventController extends Controller
         return 'published';
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $events = Event::where('user_id', auth()->id())->get();
         return view('admin.event.index', compact('events'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Kategori::all();
         return view('admin.event.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $action = $request->input('action', 'draft');
@@ -105,12 +96,9 @@ class EventController extends Controller
 
         $event = Event::create($validatedData);
 
-        return redirect()->route('admin.events.index')->with('success', "Event berhasil disimpan. Status: {$event->status} | Publish At: " . ($event->publish_at ?? '-'));
+        return redirect()->route('pengelola.events.index')->with('success', "Event berhasil disimpan. Status: {$event->status} | Publish At: " . ($event->publish_at ?? '-'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $event = Event::findOrFail($id);
@@ -121,9 +109,6 @@ class EventController extends Controller
         return view('admin.event.show', compact('event', 'categories', 'tickets', 'ticketTypes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
@@ -131,9 +116,6 @@ class EventController extends Controller
         return view('admin.event.edit', compact('event', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         try {
@@ -152,7 +134,7 @@ class EventController extends Controller
                 $rules['tanggal_waktu_mulai'] = 'required|date';
                 $rules['tanggal_waktu_selesai'] = 'required|date|after_or_equal:tanggal_waktu_mulai';
                 $rules['kategori_id'] = 'required|exists:kategoris,id';
-                $rules['gambar'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048'; 
+                $rules['gambar'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048';
             } else {
                 $rules['deskripsi'] = 'nullable|string';
                 $rules['lokasi'] = 'nullable|string|max:255';
@@ -178,16 +160,13 @@ class EventController extends Controller
 
             $event->update($validatedData);
 
-            return redirect()->route('admin.events.index')->with('success', "Event berhasil diperbarui. Status: {$event->status} | Publish At: " . ($event->publish_at ?? '-'));
+            return redirect()->route('pengelola.events.index')->with('success', "Event berhasil diperbarui. Status: {$event->fresh()->status} | Publish At: " . ($event->fresh()->publish_at ?? '-'));
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $event = Event::findOrFail($id);
