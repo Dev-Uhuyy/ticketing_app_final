@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\PengelolaEvent\ReviewController;
 use App\Http\Controllers\SuperAdmin\CategoryController;
 use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboard;
 use App\Http\Controllers\SuperAdmin\HistoriesController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\PengelolaEvent\TicketTypeController;
 use App\Http\Controllers\Pembeli\EventController as PembeliEventController;
 use App\Http\Controllers\Pembeli\HomeController;
 use App\Http\Controllers\Pembeli\OrderController;
+
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -29,11 +32,16 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Reviews
+    Route::get('/events/{event}/reviews', [OrderController::class, 'createReview'])->name('reviews.create');
+    Route::post('/events/{event}/reviews', [OrderController::class, 'storeReview'])->name('reviews.store');
 
     Route::middleware('superadmin')->prefix('admin')->name('superadmin.')->group(function () {
         Route::get('/', [SuperAdminDashboard::class, 'index'])->name('dashboard');
@@ -54,6 +62,14 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('pengelola')->prefix('pengelola')->name('pengelola.')->group(function () {
         Route::get('/', [PengelolaDashboard::class, 'index'])->name('dashboard');
+
+
+        // Rate dan Review
+        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::get('/reviews/{id}/answer', [ReviewController::class, 'showAnswer'])->name('reviews.showAnswer');
+        Route::post('/reviews/{id}/answer', [ReviewController::class, 'answer'])->name('reviews.answer');
+
+
 
         Route::resource('events', PengelolaEventController::class);
 
