@@ -38,7 +38,7 @@
                         datasets: [{
                             label: 'Jumlah Transaksi',
                             data: {!! json_encode($chartOrders ?? []) !!},
-                            backgroundColor: '#3b82f6', // Blue 500
+                            backgroundColor: '#11408cff', // Blue 500
                             borderRadius: 6,
                             hoverBackgroundColor: '#60a5fa' // Blue 400
                         }]
@@ -64,118 +64,117 @@
     <div
         class="min-h-screen bg-slate-50 text-slate-800 p-4 md:p-8 font-sans selection:bg-blue-200 selection:text-blue-900">
 
-        <header
-            class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
-            <div>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3">
-                    Superadmin Dashboard
-                </h1>
-            </div>
+        <header class="mb-8 flex items-center gap-4">
             <div
-                class="px-4 py-2 bg-white rounded-full border border-slate-200 shadow-sm text-sm text-slate-600 flex items-center gap-2 font-medium">
-                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-500/20"></div>
-                Sistem Online
+                class="w-11 h-11 rounded-full md:rounded-2xl border border-slate-200 bg-white flex items-center justify-center shadow-sm">
+                <div class="w-7 h-7 rounded-full bg-[#1e293b] flex items-center justify-center text-white">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+            </div>
+            <div>
+                <h1 class="text-[22px] font-bold tracking-tight text-[#0f172a] leading-none mb-1">
+                    Dashboard Superadmin
+                </h1>
+                <p class="text-[13px] text-slate-400 font-medium">Monitor performa sistem dan transaksi Anda</p>
             </div>
         </header>
 
-        <!-- Metrics Grid (Interactive Clean Cards) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
             <!-- Metric 1: Revenue -->
             <div
-                class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Total Pendapatan</p>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Rp
-                        {{ number_format($totalRevenue ?? 0, 0, ',', '.') }}
-                    </h2>
+                class="bg-white rounded-[16px] p-[20px] border border-slate-100 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] flex justify-between items-center transition-shadow hover:shadow-[0_4px_15px_-4px_rgba(0,0,0,0.08)]">
+                <div class="flex flex-col">
+                    <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Total
+                        Pendapatan</span>
+                    <span class="text-[26px] font-black text-[#1e293b] leading-none mb-1.5 flex items-center">
+                        <span
+                            class="text-[16px] mr-1 font-bold">Rp</span>{{ number_format($totalRevenue ?? 0, 0, ',', '.') }}
+                    </span>
+                    <a href="{{ route('superadmin.histories.index') }}"
+                        class="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">Semua pendapatan
+                        Anda</a>
                 </div>
-                <a href="{{ route('superadmin.histories.index') }}"
-                    class="mt-4 text-emerald-600 text-sm font-medium flex items-center gap-1 hover:text-emerald-700">Lihat
-                    Laporan Keuangan <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg></a>
+                <!-- Icon: Calendar-like (dark blue/indigo) -->
+                <div
+                    class="w-[42px] h-[42px] rounded-[12px] bg-[#f8fafc] flex items-center justify-center bg-emerald-50 text-emerald-600">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
             </div>
 
-            <!-- Metric 2: Transactions -->
+            <!-- Metric 2: Transactions (Check circle green) -->
             <div
-                class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Total Transaksi</p>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-2">{{ $totalOrders ?? 0 }} <span
-                            class="text-sm font-normal text-slate-400">Order</span></h2>
+                class="bg-white rounded-[16px] p-[20px] border border-slate-100 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] flex justify-between items-center transition-shadow hover:shadow-[0_4px_15px_-4px_rgba(0,0,0,0.08)]">
+                <div class="flex flex-col">
+                    <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Total
+                        Transaksi</span>
+                    <span class="text-[28px] font-black text-[#1e293b] leading-none mb-1.5">
+                        {{ $totalOrders ?? 0 }}
+                    </span>
+                    <a href="{{ route('superadmin.histories.index') }}"
+                        class="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">Transaksi berhasil</a>
                 </div>
-                <a href="{{ route('superadmin.histories.index') }}"
-                    class="mt-4 text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700">Kelola
-                    Transaksi <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg></a>
+                <!-- Icon: Check Circle (green) -->
+                <div
+                    class="w-[42px] h-[42px] rounded-[12px] bg-[#ecfdf5] flex items-center justify-center text-[#10b981]">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
             </div>
 
-            <!-- Metric 3: Events -->
+            <!-- Metric 3: Events/Kategori (Ticket blue) -->
             <div
-                class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Manajemen Kategori</p>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-2">{{ $totalEvents ?? 0 }} <span
-                            class="text-sm font-normal text-slate-400">Kategori aktif</span></h2>
+                class="bg-white rounded-[16px] p-[20px] border border-slate-100 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] flex justify-between items-center transition-shadow hover:shadow-[0_4px_15px_-4px_rgba(0,0,0,0.08)]">
+                <div class="flex flex-col">
+                    <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Total
+                        Kategori</span>
+                    <span class="text-[28px] font-black text-[#1e293b] leading-none mb-1.5">
+                        {{ $totalEvents ?? 0 }}
+                    </span>
+                    <a href="{{ route('superadmin.categories.index') }}"
+                        class="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">Kategori aktif</a>
                 </div>
-                <a href="{{ route('superadmin.categories.index') }}"
-                    class="mt-4 text-purple-600 text-sm font-medium flex items-center gap-1 hover:text-purple-700">Kelola
-                    {{ $totalCategories ?? 0 }} Kategori <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg></a>
+                <!-- Icon: Ticket (blue) -->
+                <div
+                    class="w-[42px] h-[42px] rounded-[12px] bg-[#eff6ff] flex items-center justify-center text-[#3b82f6]">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z">
+                        </path>
+                    </svg>
+                </div>
             </div>
 
-            <!-- Metric 4: Users -->
+            <!-- Metric 4: Users (Star warning/amber) -->
             <div
-                class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Total Pengguna</p>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-2">{{ $totalUsers ?? 0 }} <span
-                            class="text-sm font-normal text-slate-400">Akun</span></h2>
+                class="bg-white rounded-[16px] p-[20px] border border-slate-100 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] flex justify-between items-center transition-shadow hover:shadow-[0_4px_15px_-4px_rgba(0,0,0,0.08)]">
+                <div class="flex flex-col">
+                    <span class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2">Total
+                        Pengguna</span>
+                    <span class="text-[28px] font-black text-[#1e293b] leading-none mb-1.5">
+                        {{ $totalUsers ?? 0 }}
+                    </span>
+                    <a href="{{ route('superadmin.users.index') }}"
+                        class="text-[12px] text-slate-400 hover:text-slate-600 transition-colors">Semua akun
+                        pengguna</a>
                 </div>
-                <a href="{{ route('superadmin.users.index') }}"
-                    class="mt-4 text-orange-600 text-sm font-medium flex items-center gap-1 hover:text-orange-700">Kelola
-                    Pengguna <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg></a>
+                <!-- Icon: Star (Amber) -->
+                <div
+                    class="w-[42px] h-[42px] rounded-[12px] bg-[#fffbeb] flex items-center justify-center text-[#f59e0b]">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
             </div>
         </div>
 
@@ -202,14 +201,15 @@
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg font-bold text-slate-800">Volume Transaksi</h3>
                     <select onchange="window.location.href = '?filter=' + this.value"
-                        class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2">
+                        class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block p-2">
                         <option value="7days" {{ ($filter ?? '7days') == '7days' ? 'selected' : '' }}>7 Hari Terakhir
                         </option>
                         <option value="month" {{ ($filter ?? '7days') == 'month' ? 'selected' : '' }}>Bulan Ini</option>
                     </select>
                 </div>
                 <div class="relative h-80 w-full">
-                    <canvas id="ordersChart"></canvas>
+                    <!-- 🔵 GANTI WARNA DI SINI -->
+                    <canvas id="ordersChart" data-color="#10B981"></canvas>
                 </div>
             </div>
         </div>

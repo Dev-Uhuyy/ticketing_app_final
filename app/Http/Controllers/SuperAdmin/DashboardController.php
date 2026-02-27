@@ -32,15 +32,13 @@ class DashboardController extends Controller
 
         $totalPembeli = User::where('role', 'pembeli')->count();
         $totalPengelola = User::where('role', 'pengelola_event')->count();
-        $totalUsers = User::count(); // or just overall users
+        $totalUsers = User::count();
 
         $totalVouchers = Voucher::count();
         $totalPaymentMethods = PaymentMethod::count();
 
-        // Recent 5 orders
         $recentOrders = Order::with(['user', 'event'])->latest('order_date')->take(5)->get();
 
-        // Chart Data Filtering
         $startDate = Carbon::now();
         if ($filter === 'month') {
             $startDate = Carbon::now()->startOfMonth();
@@ -59,8 +57,6 @@ class DashboardController extends Controller
 
         $chartDates = [];
         $chartOrders = [];
-
-        // 1. Transaction Volume (Orders overall)
         $orderDataRaw = Order::select(DB::raw('DATE(order_date) as date'), DB::raw('COUNT(*) as total'))
             ->where('order_date', '>=', $startDate)
             ->groupBy(DB::raw('DATE(order_date)'))
@@ -72,7 +68,6 @@ class DashboardController extends Controller
             $chartOrders[] = isset($orderDataRaw[$date]) ? $orderDataRaw[$date]->total : 0;
         }
 
-        // 2. Revenue Trend by Category
         $kategoris = Kategori::all();
         $revenueDataRaw = Order::join('events', 'orders.event_id', '=', 'events.id')
             ->select(DB::raw('DATE(orders.order_date) as date'), 'events.kategori_id', DB::raw('SUM(orders.total_harga) as total'))
@@ -131,13 +126,28 @@ class DashboardController extends Controller
             ];
         }
 
-        // 3. Category Summary Cards
         $categoryCards = Kategori::withCount('events')->get()->map(function ($cat) {
             $cat->revenue = Order::whereHas('event', function ($q) use ($cat) {
                 $q->where('kategori_id', $cat->id);
             })->sum('total_harga');
             return $cat;
         });
+
+        // 4. Ringkasan Performa Cards
+        $totalSemuaTiket = Tiket::sum('stok') ?? 0;
+
+        $topEvent = DB::table('orders')
+            ->join('events', 'orders.event_id', '=', 'events.id')
+            ->select('events.judul', DB::raw('COUNT(orders.id) as total_tiket'))
+            ->groupBy('events.judul')
+            ->orderBy('total_tiket', 'desc')
+            ->first();
+
+        $topDay = DB::table('orders')
+            ->select(DB::raw('DATE(order_date) as tanggal'), DB::raw('COUNT(id) as total_tiket'))
+            ->groupBy(DB::raw('DATE(order_date)'))
+            ->orderBy('total_tiket', 'desc')
+            ->first();
 
         return view('superadmin.dashboard', compact(
             'totalEvents',
@@ -154,7 +164,10 @@ class DashboardController extends Controller
             'chartRevenueDatasets',
             'chartOrders',
             'filter',
-            'categoryCards'
+            'categoryCards',
+            'totalSemuaTiket',
+            'topEvent',
+            'topDay'
         ));
     }
 }
